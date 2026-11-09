@@ -3,10 +3,7 @@
 
   const cfg = window.APP_CONFIG || {};
   const $ = (s) => document.querySelector(s);
-  const CRITERIOS = [
-    ["sabor", "Sabor"], ["temperatura", "Temperatura"], ["aparencia", "Aparência"],
-    ["qualidade", "Qualidade"], ["variedade", "Variedade"]
-  ];
+  const CRITERIOS = [["sabor", "Sabor"], ["qualidade", "Qualidade"]];
   const TZ = "America/Sao_Paulo";
   const nf = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
@@ -124,7 +121,7 @@
     }
   }
 
-  const media = (k) => linhas.length ? linhas.reduce((s, r) => s + r[k], 0) / linhas.length : 0;
+  const media = (k) => { const v = linhas.map((r) => r[k]).filter((x) => x != null); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : 0; };
 
   function barra(rotulo, pct, valor) {
     return `<div class="bar-row"><span>${rotulo}</span>` +
@@ -205,12 +202,12 @@
 
   $("#exportar").addEventListener("click", () => {
     if (!linhas.length) { $("#status").textContent = "Não há avaliações no período para exportar."; return; }
-    const cab = ["Data", "Hora", "Nota geral", "Sabor", "Temperatura", "Aparência", "Qualidade", "Variedade", "Observação"];
+    const cab = ["Data", "Hora", "Nota geral", ...CRITERIOS.map(([, n]) => n), "Observação"];
     const corpo = linhas.map((r) => {
       const d = new Date(r.criado_em);
       const data = d.toLocaleDateString("pt-BR", { timeZone: TZ });
       const hora = d.toLocaleTimeString("pt-BR", { timeZone: TZ, hour: "2-digit", minute: "2-digit" });
-      return [data, hora, r.nota_geral, r.sabor, r.temperatura, r.aparencia, r.qualidade, r.variedade, r.observacao]
+      return [data, hora, r.nota_geral, ...CRITERIOS.map(([k]) => r[k]), r.observacao]
         .map(celula).join(";");
     });
     const csv = "\uFEFF" + [cab.map(celula).join(";"), ...corpo].join("\r\n");

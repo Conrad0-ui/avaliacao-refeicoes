@@ -3,10 +3,7 @@
 
   const CRITERIOS = [
     ["sabor", "Sabor"],
-    ["temperatura", "Temperatura"],
-    ["aparencia", "Aparência"],
-    ["qualidade", "Qualidade"],
-    ["variedade", "Variedade"]
+    ["qualidade", "Qualidade"]
   ];
   const ROTULOS = ["", "Muito ruim", "Ruim", "Regular", "Boa", "Excelente"];
   const STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.83 5.73 6.33.92-4.58 4.46 1.08 6.3L12 17.24l-5.66 2.97 1.08-6.3-4.58-4.46 6.33-.92z"/></svg>';
