@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#F7F5EF">
+  <meta name="format-detection" content="telephone=no">
+  <title>Como foi sua refeição?</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23556B2F' d='M12 2.8l2.83 5.73 6.33.92-4.58 4.46 1.08 6.3L12 17.24l-5.66 2.97 1.08-6.3-4.58-4.46 6.33-.92z'/></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <script src="config.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body class="public">
+  <main class="wrap">
+    <section id="form-view">
+      <header class="intro">
+        <h1>Como foi sua refeição?</h1>
+        <p class="lede">Sua opinião é importante para melhorarmos cada vez mais. Sua avaliação é totalmente anônima.</p>
+      </header>
+
+      <form id="form" novalidate>
+        <fieldset class="block overall" id="overall">
+          <legend>Avaliação geral</legend>
+          <div class="stars" id="stars" role="radiogroup" aria-label="Avaliação geral, de 1 a 5 estrelas"></div>
+          <p class="star-label" id="star-label" aria-live="polite">Toque em uma estrela</p>
+        </fieldset>
+
+        <fieldset class="block">
+          <legend>O que você achou da comida?</legend>
+          <p class="hint">De 1 (muito ruim) a 5 (excelente)</p>
+          <div id="criteria"></div>
+        </fieldset>
+
+        <div class="block field">
+          <label for="obs">Observações <span class="opt">(opcional)</span></label>
+          <textarea id="obs" name="obs" rows="4" maxlength="1000"
+            placeholder="Gostaria de deixar alguma sugestão, elogio ou observação?"></textarea>
+          <p class="counter"><span id="count">0</span>/1000</p>
+        </div>
+
+        <p class="error" id="error" role="alert" hidden></p>
+
+        <button type="submit" class="submit" id="submit">Enviar avaliação</button>
+
+        <details class="privacy">
+          <summary>Como cuidamos da sua privacidade</summary>
+          <p>Não pedimos nome, e-mail, telefone, CPF nem localização, e este site não usa cookies de rastreamento. Sua avaliação é salva apenas com as notas, o comentário (se houver) e o horário aproximado, sem nenhum vínculo com você.</p>
+          <p>Como em qualquer site, os servidores podem manter registros técnicos temporários de acesso por motivos de segurança. Esses registros não ficam ligados à sua avaliação. Evite escrever seu nome ou dados pessoais no campo de observações.</p>
+        </details>
+      </form>
+    </section>
+
+    <section id="done-view" class="done" hidden>
+      <svg class="check" viewBox="0 0 52 52" aria-hidden="true">
+        <circle cx="26" cy="26" r="24" />
+        <path d="M15 27.5l7 7 15-16" />
+      </svg>
+      <h2 id="done-title" tabindex="-1">Obrigado pela sua contribuição!</h2>
+      <p>Sua avaliação foi recebida com sucesso. Agradecemos por ajudar a melhorar nossas refeições.</p>
+    </section>
+  </main>
+</body>
+</html>

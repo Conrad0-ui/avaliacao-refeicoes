@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Painel de avaliações</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js" defer></script>
+  <script src="config.js" defer></script>
+  <script src="admin.js" defer></script>
+</head>
+<body class="admin">
+  <main class="wrap">
+
+    <!-- Login -->
+    <section id="view-login" class="login" hidden>
+      <h1>Painel de avaliações</h1>
+      <p>Acesso restrito à equipe responsável.</p>
+      <form id="login-form">
+        <label for="email">E-mail</label>
+        <input class="input" id="email" type="email" autocomplete="username" required>
+        <label for="senha">Senha</label>
+        <input class="input" id="senha" type="password" autocomplete="current-password" required>
+        <p class="error" id="login-error" role="alert" hidden></p>
+        <button class="btn" id="login-btn" type="submit">Entrar</button>
+      </form>
+    </section>
+
+    <!-- Sem permissão -->
+    <section id="view-noaccess" class="login" hidden>
+      <h1>Sem acesso</h1>
+      <p>Esta conta não está cadastrada como administradora. Peça para incluí-la na tabela de administradores.</p>
+      <button class="btn btn-ghost" data-logout type="button">Sair</button>
+    </section>
+
+    <!-- Painel -->
+    <section id="view-dash" hidden>
+      <div class="topbar">
+        <h1>Avaliações das refeições</h1>
+        <button class="btn btn-ghost" data-logout type="button">Sair</button>
+      </div>
+
+      <div class="filters">
+        <label>Período
+          <select id="periodo">
+            <option value="7">Últimos 7 dias</option>
+            <option value="30" selected>Últimos 30 dias</option>
+            <option value="90">Últimos 90 dias</option>
+            <option value="tudo">Todo o período</option>
+            <option value="custom">Escolher datas</option>
+          </select>
+        </label>
+        <label id="lbl-de" hidden>De <input type="date" id="de"></label>
+        <label id="lbl-ate" hidden>Até <input type="date" id="ate"></label>
+        <button class="btn" id="exportar" type="button">Exportar CSV</button>
+      </div>
+      <p class="status" id="status" aria-live="polite"></p>
+
+      <div id="resultados" hidden>
+        <div class="headline">
+          <div>
+            <div class="big" id="media-geral">–</div>
+            <div class="big-sub">média geral, de 5</div>
+          </div>
+          <div>
+            <div class="mid" id="total">0</div>
+            <div class="big-sub">avaliações no período</div>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div>
+            <h2>Média por item</h2>
+            <div class="bars" id="medias"></div>
+          </div>
+          <div>
+            <h2>Distribuição da nota geral</h2>
+            <div class="bars" id="distribuicao"></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Observações</h2>
+          <ul class="comments" id="comentarios"></ul>
+          <button class="btn btn-ghost" id="mais" type="button" hidden style="margin-top:1rem">Mostrar mais</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>QR Code do formulário</h2>
+        <div class="qr-box">
+          <canvas id="qr" width="360" height="360" aria-label="QR Code que abre a página de avaliação"></canvas>
+          <div class="qr-side">
+            <label class="muted" for="qr-url">Endereço da página de avaliação</label>
+            <input class="input" id="qr-url" type="url">
+            <button class="btn" id="qr-baixar" type="button">Baixar QR Code (PNG)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
